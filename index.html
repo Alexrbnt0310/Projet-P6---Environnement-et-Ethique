@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliographie - Projet P6</title>
+    
+    <!-- Intégration de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration de la palette de couleurs stricte demandée -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        c_lightgreen: '#b8dbc4',
+                        c_green: '#85d4a7',
+                        c_aqua: '#76c2c3',
+                        c_darkteal: '#0097b2',
+                        c_lightblue: '#6fabd6',
+                        c_blue: '#0032c6',
+                        c_purple: '#aa70ff',
+                        c_pink: '#fe92af',
+                        c_orange: '#ffc66f',
+                        c_white: '#ffffff',
+                        c_lightgray: '#a6a6a6',
+                        c_darkgray: '#545454',
+                        c_blackish: '#1d1d1b',
+                        c_black: '#000000',
+                    },
+                    fontFamily: {
+                        sans: ['Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Personnalisation de la barre de défilement aux couleurs de la charte */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #ffffff; }
+        ::-webkit-scrollbar-thumb { background: #a6a6a6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6fabd6; }
+    </style>
+</head>
+<body class="bg-c_white text-c_blackish min-h-screen flex flex-col selection:bg-c_lightblue selection:text-c_white">
+
+    <!-- En-tête / Hero Banner -->
+    <header class="relative overflow-hidden bg-gradient-to-br from-[#eef5fa] to-[#f4eefe] border-b-4 border-c_lightblue py-8 px-6 shadow-sm">
+        
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+            
+            <!-- Logo CESI Typographique (Gauche) -->
+            <div class="w-48 h-24 bg-c_white flex flex-col items-center justify-center font-bold text-c_blackish rounded-xl border border-c_lightgray shrink-0 shadow-sm">
+                <div class="text-4xl tracking-tighter flex items-end leading-none">
+                    CESI<span class="text-c_darkteal">_</span>
+                </div>
+                <div class="text-[0.65rem] font-bold tracking-widest mt-1 uppercase text-c_darkgray">
+                    ÉCOLE D'INGÉNIEURS
+                </div>
+            </div>
+
+            <!-- Titre Principal (Centre) -->
+            <div class="text-center flex-1">
+                <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full border-2 border-c_purple bg-c_white text-c_purple text-xs font-bold mb-4 uppercase tracking-wider shadow-sm">
+                    Projet P6 - Éthique & Environnement
+                </div>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-c_black mb-3 leading-tight">
+                    Ressources Bibliographiques
+                </h1>
+                <p class="text-sm md:text-base text-c_darkgray font-medium max-w-2xl mx-auto">
+                    Base de données scientifique, technique, statistique et légale utilisée pour le dimensionnement de la pépinière corallienne.
+                </p>
+            </div>
+            
+            <!-- Espace vide à droite pour équilibrer sur Desktop -->
+            <div class="w-48 hidden md:block shrink-0"></div>
+
+        </div>
+    </header>
+
+    <!-- Section de Contrôle (Filtres + Recherche) -->
+    <section class="max-w-6xl mx-auto w-full px-6 py-8">
+        <div class="bg-c_white border-2 border-c_lightgray p-4 rounded-xl shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+            
+            <!-- Recherche textuelle -->
+            <div class="relative w-full md:w-96">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-c_lightgray">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </span>
+                <input type="text" id="searchBar" placeholder="Rechercher une source, un auteur..." 
+                       class="w-full bg-c_white border-2 border-c_lightgray rounded-lg py-2.5 pl-10 pr-4 text-sm text-c_blackish placeholder-c_lightgray focus:outline-none focus:border-c_lightblue transition-all duration-300">
+            </div>
+
+            <!-- Boutons de filtres par catégories -->
+            <div class="flex flex-wrap gap-2 w-full md:w-auto justify-center md:justify-end">
+                <button onclick="filterCategory('all')" id="btn-all" class="filter-btn px-4 py-2 text-xs font-bold rounded-lg bg-c_blue text-c_white border-2 border-c_blue transition-all duration-300">
+                    Toutes
+                </button>
+                <button onclick="filterCategory('tech')" id="btn-tech" class="filter-btn px-4 py-2 text-xs font-bold rounded-lg bg-c_white border-2 border-c_lightgray text-c_darkgray hover:border-c_orange transition-all duration-300">
+                    ⚙️ Technique & RAC
+                </button>
+                <button onclick="filterCategory('climat')" id="btn-climat" class="filter-btn px-4 py-2 text-xs font-bold rounded-lg bg-c_white border-2 border-c_lightgray text-c_darkgray hover:border-c_darkteal transition-all duration-300">
+                    🌊 Climat & Océans
+                </button>
+                <button onclick="filterCategory('science')" id="btn-science" class="filter-btn px-4 py-2 text-xs font-bold rounded-lg bg-c_white border-2 border-c_lightgray text-c_darkgray hover:border-c_purple transition-all duration-300">
+                    🔬 Science & Stats
+                </button>
+                <button onclick="filterCategory('rse')" id="btn-rse" class="filter-btn px-4 py-2 text-xs font-bold rounded-lg bg-c_white border-2 border-c_lightgray text-c_darkgray hover:border-c_green transition-all duration-300">
+                    🌱 RSE & ODD
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grille de Cartes Bibliographiques -->
+    <main class="max-w-6xl mx-auto w-full px-6 pb-20 flex-1">
+        <div id="biblioGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-500">
+            
+            <!-- [1] Recifs.org -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_orange p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="tech" data-search="recifs.org reacteur a calcaire rac technique">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#fff4e3] text-[#cc9035] border border-[#ffc66f]">Technique & RAC</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [1]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Le réacteur à calcaire (RAC)</h3>
+                    <p class="text-xs font-bold text-c_orange mb-3">Auteur : recifs.org</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Portail explicatif sur le fonctionnement technique, les organes de contrôle et l'équilibrage hydraulique d'un RAC.</p>
+                </div>
+                <a href="http://www.recifs.org/modules.327.html" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_orange hover:text-c_white hover:border-c_orange text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [2] Guide Calcium Reactors -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_orange p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="tech" data-search="a guide to using calcium reactors simon huntington reefkeeping">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#fff4e3] text-[#cc9035] border border-[#ffc66f]">Technique & RAC</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [2]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">A Guide to Using Calcium Reactors</h3>
+                    <p class="text-xs font-bold text-c_orange mb-3">Auteur : Simon Huntington (Reefkeeping)</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Guide complet sur la configuration, l'utilisation et le réglage des réacteurs à calcium en milieu marin.</p>
+                </div>
+                <a href="http://www.reefkeeping.com/issues/2002-05/sh/feature/" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_orange hover:text-c_white hover:border-c_orange text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [3] Aquarium Récifal Wiki -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_orange p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="tech" data-search="aquarium recifal wikipedia base">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#fff4e3] text-[#cc9035] border border-[#ffc66f]">Technique & RAC</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [3]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Aquarium récifal</h3>
+                    <p class="text-xs font-bold text-c_orange mb-3">Auteur : Wikipédia</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Définition encyclopédique et fondements du maintien des écosystèmes coralliens en milieu fermé.</p>
+                </div>
+                <a href="https://fr.wikipedia.org/w/index.php?title=Aquarium_r%C3%A9cifal&oldid=212383480" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_orange hover:text-c_white hover:border-c_orange text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [4] Nature : Dissolution benthique -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_darkteal p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="climat" data-search="benthic coral reef calcium carbonate dissolution acidifying ocean nature eyre cyronak">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#e0f4f7] text-[#007b92] border border-[#0097b2]">Climat & Océans</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [4]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Benthic coral reef CaCO3 dissolution</h3>
+                    <p class="text-xs font-bold text-c_darkteal mb-3">Auteur : B. D. Eyre et al. (Nature)</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Étude majeure quantifiant l'impact de l'acidification des océans sur la dissolution des sédiments coralliens.</p>
+                </div>
+                <a href="https://doi.org/10.1038/nclimate2380" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_darkteal hover:text-c_white hover:border-c_darkteal text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [5] Vidéo Polynésie -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_darkteal p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="climat" data-search="blanchissement massif du corail polynesie 1ere video youtube">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#e0f4f7] text-[#007b92] border border-[#0097b2]">Climat & Océans</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [5]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Blanchissement massif du corail</h3>
+                    <p class="text-xs font-bold text-c_darkteal mb-3">Auteur : Polynésie la 1ère</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Reportage documentant les effets dévastateurs des anomalies thermiques sur les récifs polynésiens.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=_JXeM7-egi0" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_darkteal hover:text-c_white hover:border-c_darkteal text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [6] Calcium Reactor Wiki -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_orange p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="tech" data-search="calcium reactor wikipedia english chemistry">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#fff4e3] text-[#cc9035] border border-[#ffc66f]">Technique & RAC</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [6]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Calcium reactor</h3>
+                    <p class="text-xs font-bold text-c_orange mb-3">Auteur : Wikipedia (EN)</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Présentation technique approfondie des composants et de la chimie d'un RAC.</p>
+                </div>
+                <a href="https://en.wikipedia.org/w/index.php?title=Calcium_reactor&oldid=1303044540" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_orange hover:text-c_white hover:border-c_orange text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [7] Chemistry: Calcium -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_orange p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="tech" data-search="chemistry and the aquarium calcium reefs.com">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#fff4e3] text-[#cc9035] border border-[#ffc66f]">Technique & RAC</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [7]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Chemistry and the Aquarium: Calcium</h3>
+                    <p class="text-xs font-bold text-c_orange mb-3">Auteur : Reefs.com</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Explication détaillée des interactions chimiques du calcium dans la maintenance d'un écosystème fermé.</p>
+                </div>
+                <a href="https://reefs.com/magazine/chemistry-and-the-aquarium-calcium/" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_orange hover:text-c_white hover:border-c_orange text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [8] Stats: Coefficient de détermination -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_purple p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="science" data-search="coefficient de determination r2 wiki mathematiques statistiques">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#f6edff] text-[#8443e0] border border-[#aa70ff]">Science & Stats</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [8]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Coefficient de détermination</h3>
+                    <p class="text-xs font-bold text-c_purple mb-3">Auteur : Wikipédia</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Base mathématique justifiant la pertinence de nos régressions linéaires (R²) et de la matrice de corrélation.</p>
+                </div>
+                <a href="https://fr.wikipedia.org/w/index.php?title=Coefficient_de_d%C3%A9termination&oldid=231331332" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_purple hover:text-c_white hover:border-c_purple text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [9] Science: Rapid Climate Change -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_darkteal p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="climat" data-search="coral reefs under rapid climate change and ocean acidification science hoegh-guldberg">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#e0f4f7] text-[#007b92] border border-[#0097b2]">Climat & Océans</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [9]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Coral Reefs Under Rapid Climate Change</h3>
+                    <p class="text-xs font-bold text-c_darkteal mb-3">Auteur : O. Hoegh-Guldberg (Science)</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Article fondamental (2007) posant le diagnostic de l'impact combiné du réchauffement et de l'acidification.</p>
+                </div>
+                <a href="https://doi.org/10.1126/science.1152509" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_darkteal hover:text-c_white hover:border-c_darkteal text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [10] Deltec Twin-Tech RAC -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_orange p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="tech" data-search="deltec twin-tech calcium reactor unboxing recifal news">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#fff4e3] text-[#cc9035] border border-[#ffc66f]">Technique & RAC</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [10]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Deltec Twin-Tech Calcium Reactor</h3>
+                    <p class="text-xs font-bold text-c_orange mb-3">Auteur : Récifal News</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Déballage et analyse technique d'un RAC bi-chambre commercial automatisé de pointe.</p>
+                </div>
+                <a href="https://recifalnews.fr/2019/05/deltec-twin-tech-calcium-reactor-unboxing/" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_orange hover:text-c_white hover:border-c_orange text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [11] INSEE ODD -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_green p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="rse" data-search="insee indicateurs suivi national objectifs developpement durable odd">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#ebf7f0] text-[#55a075] border border-[#85d4a7]">RSE & ODD</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [11]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Indicateurs de suivi des ODD</h3>
+                    <p class="text-xs font-bold text-c_green mb-3">Auteur : INSEE</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Base de données officielle française pour le suivi quantifié des objectifs de durabilité (Agenda 2030).</p>
+                </div>
+                <a href="https://www.insee.fr/fr/statistiques/2654964" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_green hover:text-c_white hover:border-c_green text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [12] RSE Associations -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_green p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="rse" data-search="rse pour les associations etapes associatheque">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#ebf7f0] text-[#55a075] border border-[#85d4a7]">RSE & ODD</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [12]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">La RSE pour les associations</h3>
+                    <p class="text-xs font-bold text-c_green mb-3">Auteur : Associathèque</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Guide méthodologique pour structurer et implémenter une démarche éco-responsable dans le secteur associatif.</p>
+                </div>
+                <a href="https://www.associatheque.fr/fr/ebook-rse-pour-associations-5-etapes.html" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_green hover:text-c_white hover:border-c_green text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [13] Vidéo Disparition Coraux -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_darkteal p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="climat" data-search="les coraux sont en voie de disparition video youtube">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#e0f4f7] text-[#007b92] border border-[#0097b2]">Climat & Océans</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [13]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Coraux en voie de disparition</h3>
+                    <p class="text-xs font-bold text-c_darkteal mb-3">Auteur : YouTube (2011)</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Documentaire illustrant la dégradation progressive de la grande barrière corallienne face à l'anthropocène.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=5Cn2aSXw3PY" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_darkteal hover:text-c_white hover:border-c_darkteal text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [14] ODD État -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_green p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="rse" data-search="objectifs de developpement durable odd ministere ecologie">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#ebf7f0] text-[#55a075] border border-[#85d4a7]">RSE & ODD</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [14]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Les objectifs ODD de l'État</h3>
+                    <p class="text-xs font-bold text-c_green mb-3">Auteur : Ministère Transition Écologique</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Référentiel des cibles étatiques pour la transition écologique (Agenda 2030), base de notre grille d'évaluation.</p>
+                </div>
+                <a href="https://www.ecologie.gouv.fr/politiques-publiques/objectifs-developpement-durable-odd" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_green hover:text-c_white hover:border-c_green text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [15] Ocean Acidification: The Other CO2 Problem -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_darkteal p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="climat" data-search="ocean acidification the other co2 problem doney fabry feely">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#e0f4f7] text-[#007b92] border border-[#0097b2]">Climat & Océans</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [15]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Ocean Acidification: The CO2 Problem</h3>
+                    <p class="text-xs font-bold text-c_darkteal mb-3">Auteur : S. C. Doney et al.</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Synthèse scientifique globale détaillant le bouleversement systémique de la chimie des océans lié au carbone.</p>
+                </div>
+                <a href="https://doi.org/10.1146/annurev.marine.010908.163834" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_darkteal hover:text-c_white hover:border-c_darkteal text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <!-- [16] The effect of pH, alkalinity... -->
+            <div class="biblio-card bg-c_white border-2 border-c_lightgray hover:border-c_orange p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300" data-category="tech" data-search="the effect of ph alkalinity and calcium on hermatypic corals">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#fff4e3] text-[#cc9035] border border-[#ffc66f]">Technique & RAC</span>
+                        <span class="text-xs text-c_lightgray font-bold">Réf. [16]</span>
+                    </div>
+                    <h3 class="font-bold text-c_black text-base mb-2 leading-tight">Effect of pH, alkalinity & calcium</h3>
+                    <p class="text-xs font-bold text-c_orange mb-3">Auteur : Reefs.com</p>
+                    <p class="text-xs text-c_darkgray leading-relaxed mb-4">Étude scientifique des paramètres vitaux influençant directement la calcification des coraux hermatypiques.</p>
+                </div>
+                <a href="https://reefs.com/magazine/the-effect-of-ph-alkalinity-and-calcium-on-hermatypic-corals/" target="_blank" class="w-full text-center py-2.5 px-4 rounded-lg bg-c_white border-2 border-c_lightgray hover:bg-c_orange hover:text-c_white hover:border-c_orange text-c_blackish text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300">
+                    Consulter la source
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="bg-c_white border-t-2 border-c_lightgray py-8 text-center text-xs text-c_darkgray">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                © 2026 Projet P6 - Groupe 4 (Alexandre R., Tom L., Arthur C., Théo C., Théo R., Romain V.)
+            </div>
+            <div class="font-bold">
+                CESI École d'Ingénieurs d'Arras - FISA Généraliste
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script de filtrage et recherche dynamique -->
+    <script>
+        const searchInput = document.getElementById('searchBar');
+        const cards = document.querySelectorAll('.biblio-card');
+        let currentCategory = 'all';
+
+        searchInput.addEventListener('input', filterResources);
+
+        function filterResources() {
+            const query = searchInput.value.toLowerCase().trim();
+
+            cards.forEach(card => {
+                const searchContent = card.getAttribute('data-search').toLowerCase();
+                const cardCategory = card.getAttribute('data-category');
+
+                const matchesSearch = searchContent.includes(query);
+                const matchesCategory = currentCategory === 'all' || cardCategory === currentCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCategory(category) {
+            currentCategory = category;
+
+            // Réinitialiser tous les boutons (Style Inactif)
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-c_blue', 'text-c_white', 'border-c_blue');
+                btn.classList.add('bg-c_white', 'text-c_darkgray', 'border-c_lightgray');
+            });
+
+            // Activer le bouton sélectionné (Style Actif)
+            const activeBtn = document.getElementById(`btn-${category}`);
+            activeBtn.classList.remove('bg-c_white', 'text-c_darkgray', 'border-c_lightgray');
+            activeBtn.classList.add('bg-c_blue', 'text-c_white', 'border-c_blue');
+
+            filterResources();
+        }
+    </script>
+</body>
+</html>
